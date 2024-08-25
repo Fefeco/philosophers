@@ -6,7 +6,7 @@
 #    By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/20 09:36:54 by fcarranz          #+#    #+#              #
-#    Updated: 2024/08/20 15:11:16 by fcarranz         ###   ########.fr        #
+#    Updated: 2024/08/25 09:01:59 by fcarranz         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -40,6 +40,7 @@ CLS = \033[2J
 NAME = philo
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pthread -MMD -g
+INC = -Iinc/
 
 SRC_PATH = src/
 OBJ_PATH = obj/
@@ -56,7 +57,9 @@ DEPS = $(addprefix $(DEP_PATH), $(DEP))
 .PHONY: all clean fclean re
 
 all: $(NAME)
-	@echo '\n\n\n\n'"\t💭  $(BLD)$(G)$(NAME) ready!$(RST)  🤔"'\n\n\n\n'
+	@echo "\v\v\v"
+	@echo "\t💭  $(BLD)$(G)$(NAME) ready!$(RST)  🤔"
+	@echo "\v\v\v"
 	
 $(NAME): Makefile $(OBJS)
 	@echo "$(BLD)"
@@ -66,7 +69,7 @@ $(NAME): Makefile $(OBJS)
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH) $(DEP_PATH)
 	@echo -n "$(GR)"
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 	@echo -n "$(RST)"
 	@mv $(@:.o=.d) $(DEP_PATH)
 
