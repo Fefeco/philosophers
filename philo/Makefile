@@ -1,4 +1,4 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -6,14 +6,11 @@
 #    By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/20 09:36:54 by fcarranz          #+#    #+#              #
-#    Updated: 2024/08/25 09:01:59 by fcarranz         ###   ########.fr        #
+#    Updated: 2024/08/26 14:14:10 by fcarranz         ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 # Formatting colours
-#
-# RST 	Reset to default
-# B 	Bold text
 # R		Red text
 # G		Green text
 # GR	Gray text
@@ -22,8 +19,9 @@
 # M		Magenta text
 # C		Cyan text
 # W		White text
+# RST 	Reset to default
+# BLD 	Bold text
 # CLS	Clear screen
-# 
 R = \033[31m
 G = \033[32m
 GR=	\033[90m
@@ -35,7 +33,7 @@ W = \033[37m
 RST = \033[0m
 BLD = \033[1m
 CLS = \033[2J
-# 
+# END Formatting colours
 
 NAME = philo
 CC = gcc
