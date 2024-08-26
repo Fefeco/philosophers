@@ -44,7 +44,9 @@ SRC_PATH = src/
 OBJ_PATH = obj/
 DEP_PATH = dep/
 
-SRC = main.c
+SRC = main.c \
+	  utils.c \
+	  parser.c
 OBJ = $(SRC:.c=.o)
 DEP = $(SRC:.c=.d)
 
