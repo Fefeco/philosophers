@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:55:59 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/08/26 14:06:44 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/08/31 21:15:05 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ static long	ft_atol(char *str)
 	number = 0;
 	str = check_values(str);
 	while (is_number(*str))
+	{
 		number = (number * 10) + ((*str++) - '0');
+		if (number > INT_MAX)
+			exit_error("Wrong value. Value is grater than INT_MAX\n");
+	}
 	return (number);
 }
 
@@ -56,4 +60,6 @@ void	parser(t_data *data, char **argv)
 	data->time_to_sleep = ft_atol(argv[4]);
 	if (argv[5])
 		data->meals = ft_atol(argv[5]);
+	else
+		data->meals = -1;
 }
