@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/01 12:05:08 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/01 12:17:50 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_data
 // MAIN
 int		parser(t_data *data, char **argv);
 int		init_forks(int total_forks, t_mutex **forks);
+void	destroy_forks(int total_forks, t_mutex **forks);
 
 //  UTILS
 int		ft_strlen(char *str);

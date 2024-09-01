@@ -6,7 +6,7 @@
 #    By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/20 09:36:54 by fcarranz          #+#    #+#              #
-#    Updated: 2024/09/01 11:56:52 by fcarranz         ###   ########.fr        #
+#    Updated: 2024/09/01 12:18:40 by fcarranz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ SRC = main.c \
 	  utils.c \
 	  parser.c \
 	  sleep_ml.c \
-	  init_forks.c
+	  forks_tools.c
 OBJ = $(SRC:.c=.o)
 DEP = $(SRC:.c=.d)
 
