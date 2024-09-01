@@ -6,7 +6,7 @@
 #    By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/20 09:36:54 by fcarranz          #+#    #+#              #
-#    Updated: 2024/08/31 21:09:29 by fcarranz         ###   ########.fr        #
+#    Updated: 2024/09/01 11:56:52 by fcarranz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ DEP_PATH = dep/
 SRC = main.c \
 	  utils.c \
 	  parser.c \
-	  sleep_ml.c
+	  sleep_ml.c \
+	  init_forks.c
 OBJ = $(SRC:.c=.o)
 DEP = $(SRC:.c=.d)
 

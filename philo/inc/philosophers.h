@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/01 11:45:29 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/01 12:05:08 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define CLS "\033[2J"
 // END Formatting colours
 
-typedef struct pthread_mutex_t t_mutex;
+typedef pthread_mutex_t	t_mutex;
 
 typedef struct s_data
 {
@@ -58,6 +58,7 @@ typedef struct s_data
 
 // MAIN
 int		parser(t_data *data, char **argv);
+int		init_forks(int total_forks, t_mutex **forks);
 
 //  UTILS
 int		ft_strlen(char *str);
