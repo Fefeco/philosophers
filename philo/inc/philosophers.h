@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/01 11:40:17 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/01 11:45:29 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define CLS "\033[2J"
 // END Formatting colours
 
+typedef struct pthread_mutex_t t_mutex;
+
 typedef struct s_data
 {
 	long	nb_philos;
@@ -51,6 +53,7 @@ typedef struct s_data
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	meals;
+	t_mutex	*forks;
 }	t_data;
 
 // MAIN
@@ -60,5 +63,6 @@ int		parser(t_data *data, char **argv);
 int		ft_strlen(char *str);
 int		exit_error(const char *error);
 int		sleep_ml(long miliseconds);
+int		init_forks(int total_forks, t_mutex **forks);
 
 #endif

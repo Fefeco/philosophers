@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:59:38 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/01 11:42:09 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/01 11:47:37 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	main(int argc, char **argv)
 	if (argc == 5 || argc == 6)
 	{
 		if (parser(&data, argv))
+			return (1);
+		if (init_forks(data.nb_philos, &data.forks))
 			return (1);
 	}
 	else
