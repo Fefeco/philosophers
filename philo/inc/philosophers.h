@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/08/31 19:26:15 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/01 11:40:17 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ typedef struct s_data
 }	t_data;
 
 // MAIN
-void	parser(t_data *data, char **argv);
+int		parser(t_data *data, char **argv);
 
 //  UTILS
 int		ft_strlen(char *str);
-void	exit_error(const char *error);
+int		exit_error(const char *error);
 int		sleep_ml(long miliseconds);
 
 #endif

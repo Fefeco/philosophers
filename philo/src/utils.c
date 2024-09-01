@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:08:12 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/08/26 12:53:20 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/01 11:21:27 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	ft_strlen(char *str)
 	return (len);
 }
 
-void	exit_error(const char *error)
+int	exit_error(const char *error)
 {
 	write (2, "\v\v\v", 3);
 	write (2, error, ft_strlen((char *)error));
 	write (2, "\v\v\v", 3);
-	exit(EXIT_FAILURE);
+	return (1);
 }
