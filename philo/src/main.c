@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:59:38 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/01 11:47:37 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/01 14:37:19 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ int	main(int argc, char **argv)
 			return (1);
 		if (init_forks(data.nb_philos, &data.forks))
 			return (1);
+		init_philos(&data);
+		// init_simulation(&data);
+		free (data.philos);
+		destroy_forks(data.nb_philos, &data.forks);
 	}
 	else
 		return (exit_error(RED"\t❌  Wrong input  😵\n"RST

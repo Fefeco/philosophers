@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/01 12:17:50 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/01 14:15:37 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,33 @@
 // END Formatting colours
 
 typedef pthread_mutex_t	t_mutex;
+typedef pthread_t		t_thd;
+typedef struct s_data	t_data;
+typedef struct s_philo	t_philo;
+typedef enum e_status	t_status;
 
-typedef struct s_data
+enum e_status
+{
+	SLEPING,
+	EATING,
+	THINKING,
+	FULL,
+	DEAD,
+	WAITING_SIMULATION
+};
+
+struct s_philo
+{
+	long	id;
+	int		status;
+	bool	end_simulation;
+	t_mutex	*fork_left;
+	t_mutex	*fork_right;
+	t_mutex	mtx_status;
+	t_data	*data;
+};
+
+struct s_data
 {
 	long	nb_philos;
 	long	time_to_die;
@@ -54,12 +79,14 @@ typedef struct s_data
 	long	time_to_sleep;
 	long	meals;
 	t_mutex	*forks;
-}	t_data;
+	t_philo	*philos;
+};
 
 // MAIN
 int		parser(t_data *data, char **argv);
 int		init_forks(int total_forks, t_mutex **forks);
 void	destroy_forks(int total_forks, t_mutex **forks);
+int		init_philos(t_data *data);
 
 //  UTILS
 int		ft_strlen(char *str);
