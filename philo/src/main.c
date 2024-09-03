@@ -6,10 +6,11 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:59:38 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/01 14:37:19 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:29:32 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// test 4 310 200 100
 #include "philosophers.h"
 
 int	main(int argc, char **argv)
@@ -23,7 +24,7 @@ int	main(int argc, char **argv)
 		if (init_forks(data.nb_philos, &data.forks))
 			return (1);
 		init_philos(&data);
-		// init_simulation(&data);
+		init_simulation(&data);
 		free (data.philos);
 		destroy_forks(data.nb_philos, &data.forks);
 	}

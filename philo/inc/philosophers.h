@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/01 14:15:37 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:04:38 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ struct s_philo
 	long	id;
 	int		status;
 	bool	end_simulation;
+	t_thd	thread;
 	t_mutex	*fork_left;
 	t_mutex	*fork_right;
 	t_mutex	mtx_status;
@@ -78,6 +79,7 @@ struct s_data
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	meals;
+	long	start_time;
 	t_mutex	*forks;
 	t_philo	*philos;
 };
@@ -87,11 +89,14 @@ int		parser(t_data *data, char **argv);
 int		init_forks(int total_forks, t_mutex **forks);
 void	destroy_forks(int total_forks, t_mutex **forks);
 int		init_philos(t_data *data);
+void	*routine(void *arg);
+int 	init_simulation(t_data *data);
 
 //  UTILS
 int		ft_strlen(char *str);
 int		exit_error(const char *error);
 int		sleep_ml(long miliseconds);
 int		init_forks(int total_forks, t_mutex **forks);
+long	gettmstmp(long start);
 
 #endif

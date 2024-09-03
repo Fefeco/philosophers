@@ -6,7 +6,7 @@
 #    By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/20 09:36:54 by fcarranz          #+#    #+#              #
-#    Updated: 2024/09/01 13:41:21 by fcarranz         ###   ########.fr        #
+#    Updated: 2024/09/02 11:05:57 by fcarranz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,10 @@ SRC = main.c \
 	  parser.c \
 	  sleep_ml.c \
 	  forks_tools.c \
-	  philos_tools.c
+	  philos_tools.c \
+	  simulation.c \
+	  timestamp.c \
+	  routine.c
 OBJ = $(SRC:.c=.o)
 DEP = $(SRC:.c=.d)
 

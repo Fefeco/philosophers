@@ -6,11 +6,20 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:48:56 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/01 14:36:37 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/03 14:16:30 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+static void	test_forks(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->nb_philos)
+		printf("Philo %ld: left: %p rigth: %p\n", data->philos[i].id, data->philos[i].fork_left, data->philos[i].fork_right);
+}
 
 int	init_philos(t_data *data)
 {
@@ -24,13 +33,15 @@ int	init_philos(t_data *data)
 	{
 		data->philos[i].status = WAITING_SIMULATION;
 		data->philos[i].id = i;
-		data->philos[i].fork_left = &data->forks[i];
+		data->philos[i].fork_left = data->forks + i;
 		if (i + 1 == data->nb_philos)
-			data->philos[i].fork_right = &data->forks[0];
+			data->philos[i].fork_right = data->forks;
 		else
-			data->philos[i].fork_right = &data->forks[i + 1];
+			data->philos[i].fork_right = data->forks + i + 1;
 		data->philos[i].end_simulation = false;
+		data->philos[i].data = data;
 		++i;
 	}
+	test_forks(data);
 	return (0);
 }
