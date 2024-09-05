@@ -6,19 +6,22 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:58:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/03 14:34:43 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/05 22:57:27 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	change_status(t_mutex *mtx_status, int *status, int new_status)
+int	change_status(t_philo *philo, int new_status)
 {
-	if (pthread_mutex_lock(mtx_status))
-		return (1);
-	*status = new_status;
-	if (pthread_mutex_unlock(mtx_status))
-		return (1);
+	long	timestamp;
+
+	timestamp = gettmstmp(philo->data->start_time);
+	philo->status = new_status;
+	if (new_status <= DEAD)
+		print_status(new_status, philo->id, timestamp);
+	if (new_status == EATING)
+		philo->last_meal = timestamp;
 	return (0);
 }
 
@@ -34,14 +37,20 @@ static int	grab_forks(t_philo *philo)
 		first_fork = philo->fork_left;
 		second_fork = philo->fork_right;
 	}
+	if (check_if_all_alive(philo))
+		return (1);
 	if (pthread_mutex_lock(first_fork))
 		return (1);
-	// printf("%ld %ld has taken a fork\n", gettmstmp(philo->data->start_time), philo->id);
-	printf("%10ld %ld has taken the first fork: %p\n", gettmstmp(philo->data->start_time), philo->id, first_fork);
+	printf(YLW"%10ld %ld has taken a fork\n"RST, gettmstmp(philo->data->start_time), philo->id);
+	if (check_if_all_alive(philo))
+	{
+		if (pthread_mutex_unlock(first_fork))
+			return (1);
+		return (1);
+	}
 	if (pthread_mutex_lock(second_fork))
 		return (1);
-	// printf("%ld %ld has taken a fork\n", gettmstmp(philo->data->start_time), philo->id);
-	printf("%10ld %ld has taken the second fork: %p\n", gettmstmp(philo->data->start_time), philo->id, second_fork);
+	printf(YLW"%10ld %ld has taken a fork\n"RST, gettmstmp(philo->data->start_time), philo->id);
 	return (0);
 }
 
@@ -56,29 +65,34 @@ static int	drop_forks(t_philo *philo)
 
 void	*routine(void *arg)
 {
-	t_philo	philo;
-	long	timestamp;
+	t_philo	*philo;
 
-	philo = *((t_philo *)arg);
-	if (pthread_mutex_init(&philo.mtx_status, NULL))
+	philo = (t_philo *)arg;
+	if (pthread_mutex_init(&philo->mtx_dead_check, NULL) == -1)
 		return (NULL);
-	while (philo.status != DEAD && !philo.end_simulation)
+	while (philo->all_philos_alive)
 	{
-		timestamp = gettmstmp(philo.data->start_time);
-		if (timestamp > philo.data->time_to_die)
-			printf("%10ld %ld is dead\t😵\n", timestamp, philo.id);
-		if (grab_forks(&philo))
+		if (philo->id % 2 != 0 && philo->last_meal == -1)
+		{
+			change_status(philo, THINKING);
+			sleep_ml(philo->data->time_to_eat / 2);
+		}
+		if (check_if_all_alive(philo))
 			break ;
-		change_status(&philo.mtx_status, &philo.status, EATING);
-		printf("%10ld %ld is eating\n", gettmstmp(philo.data->start_time), philo.id);
-		sleep_ml(philo.data->time_to_eat);
-		if (drop_forks(&philo))
+		if (grab_forks(philo))
 			break ;
-		printf("%10ld %ld is sleeping\n", gettmstmp(philo.data->start_time), philo.id);
-		change_status(&philo.mtx_status, &philo.status, SLEPING);
-		sleep_ml(philo.data->time_to_sleep);
-		printf("%10ld %ld is thinking\n", gettmstmp(philo.data->start_time), philo.id);
+		change_status(philo, EATING);
+		sleep_ml(philo->data->time_to_eat);
+		if (drop_forks(philo))
+			break ;
+		if (check_if_all_alive(philo))
+			break ;
+		change_status(philo, SLEPING);
+		sleep_ml(philo->data->time_to_sleep);
+		if (check_if_all_alive(philo))
+			break ;
 	}
-	pthread_mutex_destroy(&philo.mtx_status);
+	if (pthread_mutex_destroy(&philo->mtx_dead_check) == -1)
+		return (NULL);
 	return (NULL);
 }

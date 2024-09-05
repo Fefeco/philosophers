@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/02 11:04:38 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/05 22:55:13 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ enum e_status
 	SLEPING,
 	EATING,
 	THINKING,
-	FULL,
 	DEAD,
+	FULL,
 	WAITING_SIMULATION
 };
 
@@ -64,11 +64,12 @@ struct s_philo
 {
 	long	id;
 	int		status;
-	bool	end_simulation;
+	long	last_meal;
+	bool	all_philos_alive;
 	t_thd	thread;
 	t_mutex	*fork_left;
 	t_mutex	*fork_right;
-	t_mutex	mtx_status;
+	t_mutex	mtx_dead_check;
 	t_data	*data;
 };
 
@@ -91,6 +92,7 @@ void	destroy_forks(int total_forks, t_mutex **forks);
 int		init_philos(t_data *data);
 void	*routine(void *arg);
 int 	init_simulation(t_data *data);
+int		change_status(t_philo *philo, int new_status);
 
 //  UTILS
 int		ft_strlen(char *str);
@@ -98,5 +100,8 @@ int		exit_error(const char *error);
 int		sleep_ml(long miliseconds);
 int		init_forks(int total_forks, t_mutex **forks);
 long	gettmstmp(long start);
+void	print_status(int status, long id, long timestamp);
+int		check_dead(t_philo *philo, long timestamp);
+int		check_if_all_alive(t_philo *philo);
 
 #endif
