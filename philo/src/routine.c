@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:58:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/05 22:57:27 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/05 23:34:54 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ static int	grab_forks(t_philo *philo)
 		return (1);
 	if (pthread_mutex_lock(first_fork))
 		return (1);
-	printf(YLW"%10ld %ld has taken a fork\n"RST, gettmstmp(philo->data->start_time), philo->id);
 	if (check_if_all_alive(philo))
 	{
 		if (pthread_mutex_unlock(first_fork))
 			return (1);
 		return (1);
 	}
+	printf(YLW"%10ld %ld has taken a fork\t🍴\n"RST, gettmstmp(philo->data->start_time), philo->id);
 	if (pthread_mutex_lock(second_fork))
 		return (1);
-	printf(YLW"%10ld %ld has taken a fork\n"RST, gettmstmp(philo->data->start_time), philo->id);
+	printf(YLW"%10ld %ld has taken a fork\t🍴\n"RST, gettmstmp(philo->data->start_time), philo->id);
 	return (0);
 }
 
@@ -66,6 +66,7 @@ static int	drop_forks(t_philo *philo)
 void	*routine(void *arg)
 {
 	t_philo	*philo;
+
 
 	philo = (t_philo *)arg;
 	if (pthread_mutex_init(&philo->mtx_dead_check, NULL) == -1)

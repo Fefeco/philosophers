@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/05 22:55:13 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/05 23:37:49 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 // # WHT	White text
 // # RST 	Reset to default
 // # CLS	Clear screen
-# define RED "\033[31m"
+# define RED "\033[1;31m"
 # define GRN "\033[32m"
 # define GRY "\033[90m"
 # define YLW "\033[33m"

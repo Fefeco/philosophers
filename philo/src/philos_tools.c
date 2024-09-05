@@ -6,20 +6,20 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:48:56 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/05 22:43:56 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/05 23:30:24 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	test_forks(t_data *data)
-{
-	int	i;
+// static void	test_forks(t_data *data)
+// {
+// 	int	i;
 
-	i = -1;
-	while (++i < data->nb_philos)
-		printf("Philo %ld: left: %p rigth: %p\n", data->philos[i].id, data->philos[i].fork_left, data->philos[i].fork_right);
-}
+// 	i = -1;
+// 	while (++i < data->nb_philos)
+// 		printf("Philo %ld: left: %p rigth: %p\n", data->philos[i].id, data->philos[i].fork_left, data->philos[i].fork_right);
+// }
 
 int	init_philos(t_data *data)
 {
@@ -43,6 +43,6 @@ int	init_philos(t_data *data)
 		data->philos[i].data = data;
 		++i;
 	}
-	test_forks(data);
+	// test_forks(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 10:33:21 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/05 22:54:19 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/05 23:29:06 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,22 @@ void	check_philos(t_data *data)
 		{
 			i = -1;
 			while (++i < data->nb_philos)
-			{
 				if (pthread_mutex_lock(&data->philos[i].mtx_dead_check) == -1)
 					break ;
+			i = -1;
+			while (++i < data->nb_philos)
 				data->philos[i].all_philos_alive = false;
+			i = -1;
+			while (++i < data->nb_philos)
 				if (pthread_mutex_unlock(&data->philos[i].mtx_dead_check) == -1)
 					break ;
-			}
 			break ;
 		}
 		++i;
 		if (i == data->nb_philos)
 		{
 			i = 0;
-			usleep(1000);
+			usleep(500);
 		}
 	}
 }
