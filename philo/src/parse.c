@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:55:59 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/01 11:47:03 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:26:01 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static long	ft_atol(char *str)
 	return (number);
 }
 
-int	parser(t_data *data, char **argv)
+int	parse(t_data *data, char **argv)
 {
 	data->nb_philos = ft_atol(argv[1]);
 	data->time_to_die = ft_atol(argv[2]);
