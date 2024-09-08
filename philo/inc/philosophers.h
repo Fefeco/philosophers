@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 14:07:11 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 10:48:24 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ enum e_status
 	SLEPING,
 	EATING,
 	THINKING,
-	DEAD,
 	FULL,
+	DEAD,
 	WAITING_SIMULATION
 };
 
@@ -65,11 +65,13 @@ struct s_philo
 	long	id;
 	int		status;
 	long	last_meal;
+	long	ate_meals;
 	bool	simulation_on;
 	t_thd	th;
 	t_mutex	*fork_left;
 	t_mutex	*fork_right;
 	t_mutex	mtx_simulation;
+	t_mutex	mtx_status;
 	t_data	*data;
 };
 
