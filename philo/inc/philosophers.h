@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/05 23:37:49 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:25:35 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ struct s_data
 };
 
 // MAIN
-int		parser(t_data *data, char **argv);
+int		parse(t_data *data, char **argv);
+int		init_structs(t_data *data);
 int		init_forks(int total_forks, t_mutex **forks);
 void	destroy_forks(int total_forks, t_mutex **forks);
 int		init_philos(t_data *data);

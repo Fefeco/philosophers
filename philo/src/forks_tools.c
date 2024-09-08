@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 21:49:10 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/05 23:30:36 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 10:33:32 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	destroy_forks(int total_forks, t_mutex **forks)
 	while (total_forks != i)
 	{
 		pthread_mutex_destroy(forks_tmp + i);
+		pthread_mutex_destroy(*forks + i);
 		++i;
 	}
 	free (*forks);

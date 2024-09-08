@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:58:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/05 23:34:54 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:02:10 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	*routine(void *arg)
 
 
 	philo = (t_philo *)arg;
-	if (pthread_mutex_init(&philo->mtx_dead_check, NULL) == -1)
-		return (NULL);
 	while (philo->all_philos_alive)
 	{
 		if (philo->id % 2 != 0 && philo->last_meal == -1)
@@ -93,7 +91,5 @@ void	*routine(void *arg)
 		if (check_if_all_alive(philo))
 			break ;
 	}
-	if (pthread_mutex_destroy(&philo->mtx_dead_check) == -1)
-		return (NULL);
 	return (NULL);
 }

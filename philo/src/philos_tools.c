@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:48:56 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/05 23:30:24 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:02:17 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	init_philos(t_data *data)
 	i = 0;
 	while (i < data->nb_philos)
 	{
+		if (pthread_mutex_init(&data->philos[i].mtx_dead_check, NULL) == -1)
+			return (1);
 		data->philos[i].status = WAITING_SIMULATION;
 		data->philos[i].last_meal = -1;
 		data->philos[i].id = i;
