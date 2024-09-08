@@ -6,14 +6,13 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:59:38 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 11:33:16 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 12:04:21 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// test 4 310 200 100
 #include "philosophers.h"
 
-static int	print_help()
+static int	print_help(void)
 {
 	printf(RED"\v\v\v\t❌  Wrong input  😵\n\v\v"RST);
 	printf(GRY"  Usage: ./philo <number_of_philos> <time_to_die> ");
