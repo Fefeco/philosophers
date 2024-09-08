@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:48:56 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 12:02:54 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 12:41:16 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	init_philos(t_data *data)
 		data->philos[i].id = i;
 		data->philos[i].status = WAITING_SIMULATION;
 		data->philos[i].last_meal = -1;
-		data->philos[i].all_philos_alive = true;
+		data->philos[i].simulation_on = true;
 		data->philos[i].fork_left = data->forks + i;
 		if (i + 1 == data->nb_philos)
 			data->philos[i].fork_right = data->forks;

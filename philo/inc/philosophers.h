@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 11:25:35 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:02:01 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ struct s_philo
 	long	id;
 	int		status;
 	long	last_meal;
-	bool	all_philos_alive;
+	bool	simulation_on;
 	t_thd	thread;
 	t_mutex	*fork_left;
 	t_mutex	*fork_right;
@@ -103,6 +103,6 @@ int		init_forks(int total_forks, t_mutex **forks);
 long	gettmstmp(long start);
 void	print_status(int status, long id, long timestamp);
 int		check_dead(t_philo *philo, long timestamp);
-int		check_if_all_alive(t_philo *philo);
+bool	is_simulation_on(t_philo *philo);
 
 #endif

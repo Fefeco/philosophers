@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:08:12 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/05 23:29:45 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 12:43:15 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,15 @@ void	print_status(int status, long id, long timestamp)
 		printf("%10ld %ld is thinking\t🤔\n", timestamp, id);
 }
 
-int	check_if_all_alive(t_philo *philo)
+bool	is_simulation_on(t_philo *philo)
 {
-	int	ret;
+	bool	ret;
 
-	ret = 0;
 	if (pthread_mutex_lock(&philo->mtx_dead_check) == -1)
-		return (1);
-	if (!philo->all_philos_alive)
-		ret = 1;
+		return (false);
+	ret = philo->simulation_on;
 	if (pthread_mutex_unlock(&philo->mtx_dead_check) == -1)
-		return (1);
+		return (false);
 	return (ret);
 }
 

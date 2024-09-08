@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 10:33:21 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 11:02:39 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 12:36:41 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,11 @@ void	check_philos(t_data *data)
 					break ;
 			i = -1;
 			while (++i < data->nb_philos)
-				data->philos[i].all_philos_alive = false;
+				data->philos[i].simulation_on = false;
 			i = -1;
 			while (++i < data->nb_philos)
-			{
 				if (pthread_mutex_unlock(&data->philos[i].mtx_dead_check) == -1)
 					return ;
-				// printf("Philo %ld joined\n", i);
-			}
 			break ;
 		}
 		++i;

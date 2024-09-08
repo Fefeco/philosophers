@@ -67,16 +67,15 @@ void	*routine(void *arg)
 {
 	t_philo	*philo;
 
-
 	philo = (t_philo *)arg;
-	while (philo->all_philos_alive)
+	while (is_simulation_on(philo))
 	{
 		if (philo->id % 2 != 0 && philo->last_meal == -1)
 		{
 			change_status(philo, THINKING);
 			sleep_ml(philo->data->time_to_eat / 2);
 		}
-		if (check_if_all_alive(philo))
+		if (!is_simulation_on(philo))
 			break ;
 		if (grab_forks(philo))
 			break ;
@@ -84,12 +83,10 @@ void	*routine(void *arg)
 		sleep_ml(philo->data->time_to_eat);
 		if (drop_forks(philo))
 			break ;
-		if (check_if_all_alive(philo))
+		if (!is_simulation_on(philo))
 			break ;
 		change_status(philo, SLEPING);
 		sleep_ml(philo->data->time_to_sleep);
-		if (check_if_all_alive(philo))
-			break ;
 	}
 	return (NULL);
 }
