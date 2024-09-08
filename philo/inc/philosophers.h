@@ -96,6 +96,8 @@ void	*routine(void *arg);
 int		change_status(t_philo *philo, int new_status);
 
 //  UTILS
+t_mutex	*get_first_fork(t_philo *philo);
+t_mutex	*get_second_fork(t_philo *philo);
 int		ft_strlen(char *str);
 int		exit_error(const char *error);
 int		sleep_ml(long miliseconds);

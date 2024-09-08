@@ -6,11 +6,25 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 21:49:10 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 11:51:31 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 13:02:25 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+t_mutex	*get_first_fork(t_philo *philo)
+{
+	if (philo->id % 2 != 0)
+		return (philo->fork_left);
+	return (philo->fork_right);
+}
+
+t_mutex	*get_second_fork(t_philo *philo)
+{
+	if (philo->id % 2 != 0)
+		return (philo->fork_right);
+	return (philo->fork_left);
+}
 
 void	destroy_forks(int total_forks, t_mutex **forks)
 {
