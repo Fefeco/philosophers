@@ -91,8 +91,8 @@ int		init_structs(t_data *data);
 int		init_forks(int total_forks, t_mutex **forks);
 void	destroy_forks(int total_forks, t_mutex **forks);
 int		init_philos(t_data *data);
+int 	start_simulation(t_data *data);
 void	*routine(void *arg);
-int 	init_simulation(t_data *data);
 int		change_status(t_philo *philo, int new_status);
 
 //  UTILS

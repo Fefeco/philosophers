@@ -49,7 +49,7 @@ void	check_philos(t_data *data)
 	}
 }
 
-int init_simulation(t_data *data)
+int start_simulation(t_data *data)
 {
 	struct timeval	start;
 	int				i;
