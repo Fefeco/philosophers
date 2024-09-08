@@ -6,65 +6,39 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 21:49:10 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 10:33:32 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 11:51:31 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-// static void	test_forks(t_mutex *forks, int len)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	printf("\n\t===================\n\t      Forks: %d\n\t===================\n", len);
-// 	while (++i < len)
-// 		printf("\t%d - %p\n", i, forks + i);
-// 	printf("\t===================\n\n");
-// }
-
 void	destroy_forks(int total_forks, t_mutex **forks)
 {
-	int		i;
-	t_mutex	*forks_tmp;
+	int	i;
 
-	i = 0;
-	forks_tmp = *forks;
-	while (total_forks != i)
-	{
-		pthread_mutex_destroy(forks_tmp + i);
+	i = -1;
+	while (++i != total_forks)
 		pthread_mutex_destroy(*forks + i);
-		++i;
-	}
 	free (*forks);
+	*forks = NULL;
 }
 
 int	init_forks(int total_forks, t_mutex **forks)
 {
-	t_mutex	*forks_tmp;
-	int		i;
+	int	i;
 
-	forks_tmp = (t_mutex *)malloc(sizeof(t_mutex) * total_forks);
-	if (!forks_tmp)
+	*forks = (t_mutex *)malloc(sizeof(t_mutex) * total_forks);
+	if (!(*forks))
 		return (1);
-	i = 0;
-	while (i < total_forks)
-	{
-		if (pthread_mutex_init((forks_tmp + i), NULL))
+	i = -1;
+	while (++i < total_forks)
+		if (pthread_mutex_init((*forks) + i, NULL))
 			break ;
-		++i;
-	}
 	if (i != total_forks)
 	{
 		printf("Error creating forks\n");
-		while (i != 0)
-		{
-			pthread_mutex_destroy(forks_tmp + i);
-			--i;
-		}
+		destroy_forks(i, forks);
 		return (-1);
 	}
-	*forks = forks_tmp;
-	// test_forks(*forks, total_forks);
 	return (0);
 }
