@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:59:38 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 12:07:21 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:09:01 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 	if (init_structs(&data))
 		return (1);
 	start_simulation(&data);
-	free (data.philos);
+	free_philos(&data);
 	destroy_forks(data.nb_philos, &data.forks);
 	return (0);
 }

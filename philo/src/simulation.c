@@ -6,13 +6,46 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 10:33:21 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 12:36:41 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:07:27 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	check_philos(t_data *data)
+static void	stop_simulation(t_data *data)
+{
+	long	i;
+
+	i = -1;
+	while (++i < data->nb_philos)
+		if (pthread_mutex_lock(&data->philos[i].mtx_simulation) == -1)
+			return ;
+	i = -1;
+	while (++i < data->nb_philos)
+		data->philos[i].simulation_on = false;
+	i = -1;
+	while (++i < data->nb_philos)
+		if (pthread_mutex_unlock(&data->philos[i].mtx_simulation) == -1)
+			return ;
+}
+
+static bool	is_philo_dead(t_philo *philo, long timestamp)
+{
+	long	elapsed_time;
+
+	if (philo->last_meal == -1)
+		elapsed_time = timestamp;
+	else
+		elapsed_time = timestamp - philo->last_meal;
+	if (elapsed_time >= philo->data->time_to_die)
+	{
+		change_status(philo, DEAD);
+		return (true);
+	}
+	return (false);
+}
+
+static void	check_philos(t_data *data)
 {
 	long	i;
 	long	timestamp;
@@ -20,25 +53,14 @@ void	check_philos(t_data *data)
 	i = 0;
 	while (1)
 	{
-		if (!i)
+		if (i == 0)
 			timestamp = gettmstmp(data->start_time);
-		if (check_dead(data->philos + i, timestamp))
+		if (is_philo_dead(data->philos + i, timestamp))
 		{
-			i = -1;
-			while (++i < data->nb_philos)
-				if (pthread_mutex_lock(&data->philos[i].mtx_dead_check) == -1)
-					break ;
-			i = -1;
-			while (++i < data->nb_philos)
-				data->philos[i].simulation_on = false;
-			i = -1;
-			while (++i < data->nb_philos)
-				if (pthread_mutex_unlock(&data->philos[i].mtx_dead_check) == -1)
-					return ;
+			stop_simulation(data);
 			break ;
 		}
-		++i;
-		if (i == data->nb_philos)
+		if (++i == data->nb_philos)
 		{
 			i = 0;
 			usleep(500);
@@ -46,24 +68,19 @@ void	check_philos(t_data *data)
 	}
 }
 
-int start_simulation(t_data *data)
+void	start_simulation(t_data *data)
 {
 	struct timeval	start;
 	int				i;
 
 	if (gettimeofday(&start, NULL) == -1)
-		return (-1);
+		return ;
 	data->start_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
 	i = -1;
 	while (++i < data->nb_philos)
-		pthread_create(&data->philos[i].thread, NULL, routine, &data->philos[i]);
+		pthread_create(&data->philos[i].th, NULL, routine, &data->philos[i]);
 	check_philos(data);
 	i = -1;
 	while (++i < data->nb_philos)
-	{
-		pthread_join(data->philos[i].thread, NULL);
-		if (pthread_mutex_destroy(&data->philos[i].mtx_dead_check) == -1)
-			return (-1);
-	}
-	return (0);
+		pthread_join(data->philos[i].th, NULL);
 }

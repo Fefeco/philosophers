@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 13:02:01 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:07:11 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ struct s_philo
 	int		status;
 	long	last_meal;
 	bool	simulation_on;
-	t_thd	thread;
+	t_thd	th;
 	t_mutex	*fork_left;
 	t_mutex	*fork_right;
-	t_mutex	mtx_dead_check;
+	t_mutex	mtx_simulation;
 	t_data	*data;
 };
 
@@ -91,7 +91,8 @@ int		init_structs(t_data *data);
 int		init_forks(int total_forks, t_mutex **forks);
 void	destroy_forks(int total_forks, t_mutex **forks);
 int		init_philos(t_data *data);
-int 	start_simulation(t_data *data);
+void	free_philos(t_data *data);
+void	start_simulation(t_data *data);
 void	*routine(void *arg);
 int		change_status(t_philo *philo, int new_status);
 
@@ -104,7 +105,6 @@ int		sleep_ml(long miliseconds);
 int		init_forks(int total_forks, t_mutex **forks);
 long	gettmstmp(long start);
 void	print_status(int status, long id, long timestamp);
-int		check_dead(t_philo *philo, long timestamp);
 bool	is_simulation_on(t_philo *philo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:08:12 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 12:43:15 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/08 14:12:16 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,12 @@ bool	is_simulation_on(t_philo *philo)
 {
 	bool	ret;
 
-	if (pthread_mutex_lock(&philo->mtx_dead_check) == -1)
+	if (pthread_mutex_lock(&philo->mtx_simulation) == -1)
 		return (false);
 	ret = philo->simulation_on;
-	if (pthread_mutex_unlock(&philo->mtx_dead_check) == -1)
+	if (pthread_mutex_unlock(&philo->mtx_simulation) == -1)
 		return (false);
 	return (ret);
-}
-
-int	check_dead(t_philo *philo, long timestamp)
-{
-	long	elapsed_time;
-
-	if (philo->last_meal == -1)
-		elapsed_time = timestamp;
-	else
-		elapsed_time = timestamp - philo->last_meal;
-	if (elapsed_time > philo->data->time_to_die)
-	{
-		change_status(philo, DEAD);
-		return (1);
-	}
-	return (0);
 }
 
 int	ft_strlen(char *str)
