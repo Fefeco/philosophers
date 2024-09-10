@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 14:19:17 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:29:58 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,15 @@
 // # GRN	Green text
 // # GRY	Gray text
 // # YLW	Yellow text
-// # BLU	Blue text
-// # MGN	Magenta text
 // # CYN	Cyan text
-// # WHT	White text
 // # RST 	Reset to default
-// # CLS	Clear screen
 # define RED "\033[1;31m"
 # define GRN "\033[32m"
 # define GRY "\033[90m"
 # define YLW "\033[33m"
-# define BLU "\033[34m"
-# define MGN "\033[35m"
 # define CYN "\033[36m"
-# define WHT "\033[37m"
 # define RST "\033[0m"
 # define BLD "\033[1m"
-# define CLS "\033[2J"
 // END Formatting colours
 
 typedef pthread_mutex_t	t_mutex;
