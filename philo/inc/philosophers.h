@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 14:29:58 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:14:02 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,13 @@
 
 // Formatting colours
 // # RED	Red text
-// # GRN	Green text
 // # GRY	Gray text
-// # YLW	Yellow text
-// # CYN	Cyan text
+// # BLD	Bold text
 // # RST 	Reset to default
 # define RED "\033[1;31m"
-# define GRN "\033[32m"
 # define GRY "\033[90m"
-# define YLW "\033[33m"
-# define CYN "\033[36m"
-# define RST "\033[0m"
 # define BLD "\033[1m"
+# define RST "\033[0m"
 // END Formatting colours
 
 typedef pthread_mutex_t	t_mutex;
@@ -44,7 +39,7 @@ typedef enum e_status	t_status;
 
 enum e_status
 {
-	SLEPING,
+	SLEEPING,
 	EATING,
 	THINKING,
 	FULL,

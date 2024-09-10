@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:08:12 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 14:28:11 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:14:43 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	print_status(int status, long id, long timestamp)
 {
 	if (status == DEAD)
-		printf(RED"%10ld %ld is dead\t\t😵\n"RST, timestamp, id);
-	else if (status == SLEPING)
-		printf(CYN"%10ld %ld is sleeping\t😴\n"RST, timestamp, id);
+		printf("%ld %ld is dead\n", timestamp, id);
+	else if (status == SLEEPING)
+		printf("%ld %ld is sleeping\n", timestamp, id);
 	else if (status == EATING)
-		printf(BLD"%10ld %ld is eating\t\t🍝\n"RST, timestamp, id);
+		printf("%ld %ld is eating\n", timestamp, id);
 	else if (status == THINKING)
-		printf(GRN"%10ld %ld is thinking\t🤔\n"RST, timestamp, id);
+		printf("%ld %ld is thinking\n", timestamp, id);
 }
 
 bool	is_simulation_on(t_philo *philo)
