@@ -6,13 +6,13 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:58:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 13:17:08 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:03:52 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	change_status(t_philo *philo, int new_status)
+static int	change_status(t_philo *philo, int new_status)
 {
 	long	timestamp;
 
@@ -60,7 +60,8 @@ static int	grab_forks(t_philo *philo)
 		return (1);
 	}
 	printf("%10ld %ld has taken a fork\t🍴\n", gettmstmp(start_time), philo->id);
-	if (pthread_mutex_lock(get_second_fork(philo)))
+	if (get_first_fork(philo) == get_second_fork(philo)
+		|| pthread_mutex_lock(get_second_fork(philo)))
 		return (1);
 	if (!is_simulation_on(philo))
 	{
@@ -71,7 +72,7 @@ static int	grab_forks(t_philo *philo)
 	return (0);
 }
 
-int	check_meals(t_philo	*philo)
+static int	check_meals(t_philo	*philo)
 {
 	int	ret;
 
