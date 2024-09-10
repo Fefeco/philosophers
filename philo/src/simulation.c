@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 10:33:21 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 11:33:55 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:09:13 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,17 @@ static void	check_philos(t_data *data)
 	long	philos_full;
 	long	timestamp;
 
-	i = 0;
-	while (1)
+	i = -1;
+	philos_full = 0;
+	timestamp = gettmstmp(data->start_time);
+	while (philos_full != data->nb_philos)
 	{
-		if (i == 0)
+		if (++i == data->nb_philos)
 		{
-			timestamp = gettmstmp(data->start_time);
+			usleep(500);
+			i = 0;
 			philos_full = 0;
+			timestamp = gettmstmp(data->start_time);
 		}
 		if (pthread_mutex_lock(&data->philos[i].mtx_status))
 			return ;
@@ -70,13 +74,6 @@ static void	check_philos(t_data *data)
 			++philos_full;
 		if (pthread_mutex_unlock(&data->philos[i].mtx_status))
 			return ;
-		if (++i == data->nb_philos)
-		{
-			if (philos_full == data->nb_philos)
-				break ;
-			i = 0;
-			usleep(500);
-		}
 	}
 }
 

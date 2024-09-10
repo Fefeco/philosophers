@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:58:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 11:30:51 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 12:00:14 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,16 @@ static int	grab_forks(t_philo *philo)
 
 int	check_meals(t_philo	*philo)
 {
-	if (philo->ate_meals == philo->data->meals)
-	{
-		change_status(philo, FULL);
+	int	ret;
+
+	ret = 0;
+	if (pthread_mutex_lock(&philo->mtx_status) == -1)
 		return (1);
-	}
-	return (0);
+	if (philo->status == FULL)
+		ret = 1;
+	if (pthread_mutex_unlock(&philo->mtx_status) == -1)
+		return (1);
+	return (ret);
 }
 
 void	*routine(void *arg)
@@ -95,15 +99,11 @@ void	*routine(void *arg)
 			change_status(philo, THINKING);
 			sleep_ml(philo->data->time_to_eat / 2);
 		}
-		if (!is_simulation_on(philo))
-			break ;
-		if (grab_forks(philo))
+		if (!is_simulation_on(philo) || grab_forks(philo))
 			break ;
 		change_status(philo, EATING);
 		sleep_ml(philo->data->time_to_eat);
-		if (drop_forks(philo))
-			break ;
-		if (!is_simulation_on(philo) || check_meals(philo))
+		if (drop_forks(philo) || !is_simulation_on(philo) || check_meals(philo))
 			break ;
 		change_status(philo, SLEPING);
 		sleep_ml(philo->data->time_to_sleep);
