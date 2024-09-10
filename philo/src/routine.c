@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:58:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 12:00:14 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:17:08 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,8 @@ void	*routine(void *arg)
 			break ;
 		change_status(philo, SLEPING);
 		sleep_ml(philo->data->time_to_sleep);
-		change_status(philo, THINKING);
+		if (is_simulation_on(philo))
+			change_status(philo, THINKING);
 	}
 	return (NULL);
 }
