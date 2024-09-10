@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 10:48:24 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:19:17 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,18 @@ struct s_data
 
 // MAIN
 int		parse(t_data *data, char **argv);
-int		init_structs(t_data *data);
 int		init_forks(int total_forks, t_mutex **forks);
 void	destroy_forks(int total_forks, t_mutex **forks);
 int		init_philos(t_data *data);
 void	free_philos(t_data *data);
 void	start_simulation(t_data *data);
 void	*routine(void *arg);
-int		change_status(t_philo *philo, int new_status);
 
 //  UTILS
 t_mutex	*get_first_fork(t_philo *philo);
 t_mutex	*get_second_fork(t_philo *philo);
-int		ft_strlen(char *str);
 int		exit_error(const char *error);
 int		sleep_ml(long miliseconds);
-int		init_forks(int total_forks, t_mutex **forks);
 long	gettmstmp(long start);
 void	print_status(int status, long id, long timestamp);
 bool	is_simulation_on(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:59:38 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 14:09:01 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 14:11:23 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,22 @@ static int	print_help(void)
 	return (1);
 }
 
+static int	init_structs(t_data *data)
+{
+	if (init_forks(data->nb_philos, &data->forks) == -1)
+		return (1);
+	if (init_philos(data) == -1)
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
 	if (argc < 5 || argc > 6)
 		return (print_help());
-	if (parse(&data, argv))
-		return (1);
-	if (init_structs(&data))
+	if (parse(&data, argv) || init_structs(&data))
 		return (1);
 	start_simulation(&data);
 	free_philos(&data);

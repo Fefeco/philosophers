@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 21:49:10 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 13:02:25 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/10 13:36:12 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	init_forks(int total_forks, t_mutex **forks)
 			break ;
 	if (i != total_forks)
 	{
-		printf("Error creating forks\n");
+		printf(RED"Error creating forks\n"RST);
 		destroy_forks(i, forks);
 		return (-1);
 	}

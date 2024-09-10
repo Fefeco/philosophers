@@ -6,7 +6,7 @@
 #    By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/20 09:36:54 by fcarranz          #+#    #+#              #
-#    Updated: 2024/09/08 11:25:54 by fcarranz         ###   ########.fr        #
+#    Updated: 2024/09/10 14:15:25 by fcarranz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,8 @@ SRC = main.c \
 	  philos_tools.c \
 	  simulation.c \
 	  timestamp.c \
-	  routine.c \
-	  init_structs.c
+	  routine.c
+	  
 OBJ = $(SRC:.c=.o)
 DEP = $(SRC:.c=.d)
 
