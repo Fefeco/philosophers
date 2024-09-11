@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 16:14:02 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:25:21 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ t_mutex	*get_second_fork(t_philo *philo);
 int		exit_error(const char *error);
 int		sleep_ml(long miliseconds);
 long	gettmstmp(long start);
-void	print_status(int status, long id, long timestamp);
+long	print_status(int status, long id, long timestamp);
+bool	check_status(t_philo *philo, int status);
 bool	is_simulation_on(t_philo *philo);
 
 #endif

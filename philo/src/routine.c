@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:58:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 16:14:10 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:27:10 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,22 @@ static int	change_status(t_philo *philo, int new_status)
 {
 	long	timestamp;
 
-	timestamp = gettmstmp(philo->data->start_time);
 	if (pthread_mutex_lock(&philo->mtx_status) == -1)
 		return (1);
-	if (philo->status != DEAD || philo->status != FULL)
+	if (philo->status != DEAD && philo->status != FULL)
 	{
 		philo->status = new_status;
 		if (new_status == SLEEPING && philo->ate_meals == philo->data->meals)
+		{
+			printf("Philo[%ld] FULL ||  meals: %ld\n", philo->id, philo->ate_meals);
 			philo->status = FULL;
+		}
 		if (new_status <= THINKING && philo->status != FULL)
-			print_status(new_status, philo->id, timestamp);
+			timestamp = print_status(new_status, philo->id, philo->data->start_time);
 		if (new_status == EATING)
 		{
 			philo->last_meal = timestamp;
 			++philo->ate_meals;
-			printf("Philo[%ld] meals: %ld\n", philo->id, philo->ate_meals);
 		}
 	}
 	if (pthread_mutex_unlock(&philo->mtx_status) == -1)
@@ -90,17 +91,15 @@ static int	check_meals(t_philo	*philo)
 void	*routine(void *arg)
 {
 	t_philo	*philo;
-	long	timestamp;
 
 	philo = (t_philo *)arg;
-	while (is_simulation_on(philo))
+	if (philo->id % 2 != 0)
 	{
-		timestamp = gettmstmp(philo->data->start_time);
-		if (philo->id % 2 != 0 && timestamp < 3)
-		{
-			change_status(philo, THINKING);
-			sleep_ml(philo->data->time_to_eat / 2);
-		}
+		change_status(philo, THINKING);
+		sleep_ml(philo->data->time_to_eat / 2);
+	}
+	while (is_simulation_on(philo) && !check_status(philo, FULL))
+	{
 		if (!is_simulation_on(philo) || grab_forks(philo))
 			break ;
 		change_status(philo, EATING);

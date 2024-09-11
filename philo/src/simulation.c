@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 10:33:21 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/10 13:09:13 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:37:08 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool	is_philo_dead(t_philo *philo, long timestamp)
 
 	exit = false;
 	elapsed_time = timestamp - philo->last_meal;
-	if (elapsed_time > philo->data->time_to_die && philo->status != FULL)
+	if (elapsed_time >= philo->data->time_to_die && philo->status != FULL)
 	{
 		philo->status = DEAD;
 		print_status(DEAD, philo->id, timestamp);
