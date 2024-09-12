@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:58:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/12 11:59:24 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/12 15:54:06 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ static int	grab_forks(t_philo *philo, long start_time)
 	id = philo->id + 1;
 	if (pthread_mutex_lock(get_first_fork(philo)))
 		return (1);
-	if (is_simulation_on(philo))
+	if (is_simulation_on(philo)
+		&& get_first_fork(philo) != get_second_fork(philo))
 		printf("%ld %ld has taken a fork\n", gettmstmp(start_time), id);
 	else
 	{
 		pthread_mutex_unlock(get_first_fork(philo));
 		return (1);
 	}
-	if (get_first_fork(philo) == get_second_fork(philo)
-		|| pthread_mutex_lock(get_second_fork(philo)))
+	if (pthread_mutex_lock(get_second_fork(philo)))
 		return (1);
 	if (is_simulation_on(philo))
 	{
@@ -73,31 +73,19 @@ static int	grab_forks(t_philo *philo, long start_time)
 	return (1);
 }
 
-static int	check_meals(t_philo	*philo)
-{
-	int	ret;
-
-	ret = 0;
-	if (pthread_mutex_lock(&philo->mtx_status) == -1)
-		return (1);
-	if (philo->status == FULL)
-		ret = 1;
-	if (pthread_mutex_unlock(&philo->mtx_status) == -1)
-		return (1);
-	return (ret);
-}
-
 void	*routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	if (philo->ate_meals == philo->data->meals)
+		change_status(philo, FULL);
 	if (philo->id % 2 != 0)
 	{
 		change_status(philo, THINKING);
 		sleep_ml(philo->data->time_to_eat / 2);
 	}
-	while (is_simulation_on(philo) && !check_meals(philo))
+	while (is_simulation_on(philo) && !check_status(philo, FULL))
 	{
 		if (grab_forks(philo, philo->data->start_time))
 			break ;
