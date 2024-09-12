@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:58:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/12 11:49:41 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:59:24 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ static int	drop_forks(t_philo *philo)
 
 static int	grab_forks(t_philo *philo, long start_time)
 {
+	long	id;
+
+	id = philo->id + 1;
 	if (pthread_mutex_lock(get_first_fork(philo)))
 		return (1);
 	if (is_simulation_on(philo))
-		printf("%ld %ld has taken a fork\n", gettmstmp(start_time), philo->id);
+		printf("%ld %ld has taken a fork\n", gettmstmp(start_time), id);
 	else
 	{
 		pthread_mutex_unlock(get_first_fork(philo));
@@ -63,7 +66,7 @@ static int	grab_forks(t_philo *philo, long start_time)
 		return (1);
 	if (is_simulation_on(philo))
 	{
-		printf("%ld %ld has taken a fork\n", gettmstmp(start_time), philo->id);
+		printf("%ld %ld has taken a fork\n", gettmstmp(start_time), id);
 		return (0);
 	}
 	drop_forks(philo);

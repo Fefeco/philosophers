@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:08:12 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/11 12:24:42 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:57:14 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ long	print_status(int status, long id, long start_time)
 
 	timestamp = gettmstmp(start_time);
 	if (status == DEAD)
-		printf("%ld %ld is dead\n", timestamp, id);
+		printf("%ld %ld is dead\n", timestamp, id + 1);
 	else if (status == SLEEPING)
-		printf("%ld %ld is sleeping\n", timestamp, id);
+		printf("%ld %ld is sleeping\n", timestamp, id + 1);
 	else if (status == EATING)
-		printf("%ld %ld is eating\n", timestamp, id);
+		printf("%ld %ld is eating\n", timestamp, id + 1);
 	else if (status == THINKING)
-		printf("%ld %ld is thinking\n", timestamp, id);
+		printf("%ld %ld is thinking\n", timestamp, id + 1);
 	return (timestamp);
 }
 

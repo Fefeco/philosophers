@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 10:33:21 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/12 11:26:12 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:57:23 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static bool	is_philo_dead(t_philo *philo, long start_time)
 	if (philo->status != FULL && elapsed_time > philo->data->time_to_die)
 	{
 		philo->status = DEAD;
-		printf("%ld %ld is dead\n", timestamp, philo->id);
+		printf("%ld %ld is dead\n", timestamp, philo->id + 1);
 		stop_simulation(philo->data);
 		exit = true;
 	}
