@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 10:33:21 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/12 11:57:23 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:22:03 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ static void	check_philos(t_data *data)
 		if (pthread_mutex_lock(&data->philos[i].mtx_status))
 			return ;
 		if (is_philo_dead(&data->philos[i], data->start_time))
+		{
+			pthread_mutex_unlock(&data->philos[i].mtx_status);
 			break ;
+		}
 		if (data->philos[i].status == FULL)
 			++philos_full;
 		if (pthread_mutex_unlock(&data->philos[i].mtx_status))
