@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 10:33:21 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/11 12:37:08 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/12 11:26:12 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,32 @@ static void	stop_simulation(t_data *data)
 			return ;
 }
 
-static bool	is_philo_dead(t_philo *philo, long timestamp)
+static bool	is_philo_dead(t_philo *philo, long start_time)
 {
 	long	elapsed_time;
+	long	timestamp;
 	bool	exit;
 
 	exit = false;
+	timestamp = gettmstmp(start_time);
 	elapsed_time = timestamp - philo->last_meal;
-	if (elapsed_time >= philo->data->time_to_die && philo->status != FULL)
+	if (philo->status != FULL && elapsed_time > philo->data->time_to_die)
 	{
 		philo->status = DEAD;
-		print_status(DEAD, philo->id, timestamp);
+		printf("%ld %ld is dead\n", timestamp, philo->id);
 		stop_simulation(philo->data);
 		exit = true;
 	}
-	if (exit)
-		return (true);
-	return (false);
+	return (exit);
 }
 
 static void	check_philos(t_data *data)
 {
 	long	i;
 	long	philos_full;
-	long	timestamp;
 
 	i = -1;
 	philos_full = 0;
-	timestamp = gettmstmp(data->start_time);
 	while (philos_full != data->nb_philos)
 	{
 		if (++i == data->nb_philos)
@@ -64,11 +62,10 @@ static void	check_philos(t_data *data)
 			usleep(500);
 			i = 0;
 			philos_full = 0;
-			timestamp = gettmstmp(data->start_time);
 		}
 		if (pthread_mutex_lock(&data->philos[i].mtx_status))
 			return ;
-		if (is_philo_dead(&data->philos[i], timestamp))
+		if (is_philo_dead(&data->philos[i], data->start_time))
 			break ;
 		if (data->philos[i].status == FULL)
 			++philos_full;
