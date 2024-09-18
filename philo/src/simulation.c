@@ -12,21 +12,29 @@
 
 #include "philosophers.h"
 
-static void	stop_simulation(t_data *data)
+void	stop_simulation(t_data *data, long philo_id)
 {
 	long	i;
 
 	i = -1;
 	while (++i < data->nb_philos)
+	{
+		if (i == philo_id)
+			continue ;
 		if (pthread_mutex_lock(&data->philos[i].mtx_simulation) == -1)
 			return ;
+	}
 	i = -1;
 	while (++i < data->nb_philos)
 		data->philos[i].simulation_on = false;
 	i = -1;
 	while (++i < data->nb_philos)
+	{
+		if (i == philo_id)
+			continue ;
 		if (pthread_mutex_unlock(&data->philos[i].mtx_simulation) == -1)
 			return ;
+	}
 }
 
 static bool	is_philo_dead(t_philo *philo, long start_time)
@@ -41,8 +49,7 @@ static bool	is_philo_dead(t_philo *philo, long start_time)
 	if (philo->status != FULL && elapsed_time > philo->data->time_to_die)
 	{
 		philo->status = DEAD;
-		printf("%ld %ld is dead\n", timestamp, philo->id + 1);
-		stop_simulation(philo->data);
+		print_status(DEAD, philo);
 		exit = true;
 	}
 	return (exit);

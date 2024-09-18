@@ -6,18 +6,18 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:58:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/12 15:54:06 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:02:27 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+// int	print_statement()
+
 static int	change_status(t_philo *philo, int new_status)
 {
 	long	timestamp;
-	long	start_time;
 
-	start_time = philo->data->start_time;
 	if (pthread_mutex_lock(&philo->mtx_status) == -1)
 		return (1);
 	if (philo->status != DEAD && philo->status != FULL)
@@ -26,7 +26,7 @@ static int	change_status(t_philo *philo, int new_status)
 		if (new_status == SLEEPING && philo->ate_meals == philo->data->meals)
 			philo->status = FULL;
 		if (new_status <= THINKING && philo->status != FULL)
-			timestamp = print_status(new_status, philo->id, start_time);
+			timestamp = print_status(new_status, philo);
 		if (new_status == EATING)
 		{
 			philo->last_meal = timestamp;
@@ -47,16 +47,12 @@ static int	drop_forks(t_philo *philo)
 	return (0);
 }
 
-static int	grab_forks(t_philo *philo, long start_time)
+static int	grab_forks(t_philo *philo)
 {
-	long	id;
-
-	id = philo->id + 1;
 	if (pthread_mutex_lock(get_first_fork(philo)))
 		return (1);
-	if (is_simulation_on(philo)
-		&& get_first_fork(philo) != get_second_fork(philo))
-		printf("%ld %ld has taken a fork\n", gettmstmp(start_time), id);
+	if (get_first_fork(philo) != get_second_fork(philo))
+		print_status(GRAB, philo);
 	else
 	{
 		pthread_mutex_unlock(get_first_fork(philo));
@@ -64,11 +60,8 @@ static int	grab_forks(t_philo *philo, long start_time)
 	}
 	if (pthread_mutex_lock(get_second_fork(philo)))
 		return (1);
-	if (is_simulation_on(philo))
-	{
-		printf("%ld %ld has taken a fork\n", gettmstmp(start_time), id);
+	if (print_status(GRAB, philo) > 0)
 		return (0);
-	}
 	drop_forks(philo);
 	return (1);
 }
@@ -87,7 +80,7 @@ void	*routine(void *arg)
 	}
 	while (is_simulation_on(philo) && !check_status(philo, FULL))
 	{
-		if (grab_forks(philo, philo->data->start_time))
+		if (grab_forks(philo))
 			break ;
 		change_status(philo, EATING);
 		sleep_ml(philo->data->time_to_eat);

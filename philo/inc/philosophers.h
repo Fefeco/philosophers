@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/11 12:25:21 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:59:49 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ enum e_status
 	THINKING,
 	FULL,
 	DEAD,
+	GRAB,
 	WAITING_SIMULATION
 };
 
@@ -55,6 +56,7 @@ struct s_philo
 	long	ate_meals;
 	bool	simulation_on;
 	t_thd	th;
+	t_mutex	*mtx_print;
 	t_mutex	*fork_left;
 	t_mutex	*fork_right;
 	t_mutex	mtx_simulation;
@@ -71,6 +73,7 @@ struct s_data
 	long	meals;
 	long	start_time;
 	t_mutex	*forks;
+	t_mutex	mtx_print;
 	t_philo	*philos;
 };
 
@@ -89,8 +92,9 @@ t_mutex	*get_second_fork(t_philo *philo);
 int		exit_error(const char *error);
 int		sleep_ml(long miliseconds);
 long	gettmstmp(long start);
-long	print_status(int status, long id, long timestamp);
+long	print_status(int status, t_philo *philo);
 bool	check_status(t_philo *philo, int status);
 bool	is_simulation_on(t_philo *philo);
+void	stop_simulation(t_data *data, long philo_id);
 
 #endif
