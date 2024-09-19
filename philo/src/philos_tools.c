@@ -6,31 +6,37 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 12:48:56 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/12 17:41:10 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:37:46 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	free_philos(t_data *data)
+int	free_philos(t_data *data, long nb_philos)
 {
 	long	i;
 
 	i = -1;
-	while (++i < data->nb_philos)
+	while (++i < nb_philos)
 	{
-		if (pthread_mutex_destroy(&data->philos[i].mtx_simulation) == -1)
+		if (pthread_mutex_destroy(&data->philos[i].mtx_chk_death) == -1)
+			break ;
+		if (pthread_mutex_destroy(&data->philos[i].mtx_status) == -1)
 			break ;
 	}
 	free (data->philos);
+	return (-1);
 }
 
 static int	init_philo_mutexes(t_philo *philo)
 {
-	if (pthread_mutex_init(&philo->mtx_simulation, NULL) == -1)
+	if (pthread_mutex_init(&philo->mtx_chk_death, NULL) == -1)
 		return (1);
 	if (pthread_mutex_init(&philo->mtx_status, NULL) == -1)
+	{
+		pthread_mutex_destroy(&philo->mtx_chk_death);
 		return (1);
+	}
 	return (0);
 }
 
@@ -56,7 +62,7 @@ int	init_philos(t_data *data)
 		else
 			data->philos[i].fork_right = data->forks + i + 1;
 		if (init_philo_mutexes(&data->philos[i]))
-			return (1);
+			return (free_philos(data, i));
 		data->philos[i].data = data;
 	}
 	return (0);

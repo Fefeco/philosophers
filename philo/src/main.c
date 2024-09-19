@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:59:38 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/12 17:43:03 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:43:20 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ static int	init_structs(t_data *data)
 	if (init_forks(data->nb_philos, &data->forks) == -1)
 		return (1);
 	if (pthread_mutex_init(&data->mtx_print, NULL) == -1
-	|| init_philos(data) == -1)
+		|| init_philos(data) == -1)
 	{
 		destroy_forks(data->nb_philos, &data->forks);
+		pthread_mutex_destroy(&data->mtx_print);
 		return (1);
 	}
 	return (0);
@@ -43,7 +44,7 @@ int	main(int argc, char **argv)
 	if (parse(&data, argv) || init_structs(&data))
 		return (1);
 	start_simulation(&data);
-	free_philos(&data);
+	free_philos(&data, data.nb_philos);
 	destroy_forks(data.nb_philos, &data.forks);
 	pthread_mutex_destroy(&data.mtx_print);
 	return (0);

@@ -6,7 +6,7 @@
 #    By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/20 09:36:54 by fcarranz          #+#    #+#              #
-#    Updated: 2024/09/10 14:15:25 by fcarranz         ###   ########.fr        #
+#    Updated: 2024/09/19 18:19:38 by fcarranz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,15 +44,16 @@ SRC_PATH = src/
 OBJ_PATH = obj/
 DEP_PATH = dep/
 
-SRC = main.c \
-	  utils.c \
+SRC = forks_tools.c \
+	  main.c \
 	  parse.c \
-	  sleep_ml.c \
-	  forks_tools.c \
 	  philos_tools.c \
+	  print.c \
+	  routine.c \
 	  simulation.c \
+	  sleep_ml.c \
 	  timestamp.c \
-	  routine.c
+	  utils.c
 	  
 OBJ = $(SRC:.c=.o)
 DEP = $(SRC:.c=.d)

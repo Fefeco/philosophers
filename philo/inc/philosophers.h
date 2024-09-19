@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/12 17:59:49 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:44:11 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ struct s_philo
 	t_mutex	*mtx_print;
 	t_mutex	*fork_left;
 	t_mutex	*fork_right;
-	t_mutex	mtx_simulation;
+	t_mutex	mtx_chk_death;
 	t_mutex	mtx_status;
 	t_data	*data;
 };
@@ -72,6 +72,7 @@ struct s_data
 	long	time_to_sleep;
 	long	meals;
 	long	start_time;
+	bool	stop_simulation;
 	t_mutex	*forks;
 	t_mutex	mtx_print;
 	t_philo	*philos;
@@ -82,7 +83,7 @@ int		parse(t_data *data, char **argv);
 int		init_forks(int total_forks, t_mutex **forks);
 void	destroy_forks(int total_forks, t_mutex **forks);
 int		init_philos(t_data *data);
-void	free_philos(t_data *data);
+int		free_philos(t_data *data, long nb_philos);
 void	start_simulation(t_data *data);
 void	*routine(void *arg);
 
@@ -92,9 +93,8 @@ t_mutex	*get_second_fork(t_philo *philo);
 int		exit_error(const char *error);
 int		sleep_ml(long miliseconds);
 long	gettmstmp(long start);
-long	print_status(int status, t_philo *philo);
+void	update_and_print_status(int status, t_philo *philo);
 bool	check_status(t_philo *philo, int status);
-bool	is_simulation_on(t_philo *philo);
-void	stop_simulation(t_data *data, long philo_id);
+int		update_status(t_philo *philo, int status);
 
 #endif
