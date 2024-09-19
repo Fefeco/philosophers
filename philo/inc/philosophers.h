@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/19 19:44:11 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/19 20:40:33 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 // # BLD	Bold text
 // # RST 	Reset to default
 # define RED "\033[1;31m"
+# define GRN "\033[1;32m"
+# define BLU "\033[1;34m"
 # define GRY "\033[90m"
 # define BLD "\033[1m"
 # define RST "\033[0m"

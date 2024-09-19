@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 18:17:23 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/19 19:43:04 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/19 20:39:41 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static bool	is_safe_print(t_philo *philo, long timestamp)
 static void	print_status(int new_status, t_philo *philo, long timestamp)
 {
 	if (new_status == DEAD)
-		printf("%ld %ld is dead\n", timestamp, philo->id + 1);
+		printf(RED"%ld %ld is dead\n"RST, timestamp, philo->id + 1);
 	else if (new_status == SLEEPING)
 		printf("%ld %ld is sleeping\n", timestamp, philo->id + 1);
 	else if (new_status == EATING)
-		printf("%ld %ld is eating\n", timestamp, philo->id + 1);
+		printf(GRN"%ld %ld is eating\n"RST, timestamp, philo->id + 1);
 	else if (new_status == THINKING)
-		printf("%ld %ld is thinking\n", timestamp, philo->id + 1);
+		printf(GRY"%ld %ld is thinking\n"RST, timestamp, philo->id + 1);
 	else if (new_status == GRAB)
-		printf("%ld %ld has taken a fork\n", timestamp, philo->id + 1);
+		printf(BLU"%ld %ld has taken a fork\n"RST, timestamp, philo->id + 1);
 }
 
 void	update_and_print_status(int new_status, t_philo *philo)
