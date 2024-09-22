@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 09:02:08 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/19 20:40:33 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/22 13:15:31 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ void	*routine(void *arg);
 t_mutex	*get_first_fork(t_philo *philo);
 t_mutex	*get_second_fork(t_philo *philo);
 int		exit_error(const char *error);
-int		sleep_ml(long miliseconds);
+void	sleep_ml(long miliseconds);
 long	gettmstmp(long start);
+long	get_time_ml(void);
 void	update_and_print_status(int status, t_philo *philo);
 bool	check_status(t_philo *philo, int status);
 int		update_status(t_philo *philo, int status);

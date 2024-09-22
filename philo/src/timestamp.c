@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 09:56:59 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/08 13:32:23 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/22 13:19:00 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,5 @@
 
 long	gettmstmp(long start)
 {
-	struct timeval	current;
-	long			stop;
-
-	if (gettimeofday(&current, NULL) == -1)
-		return (-1);
-	stop = ((current.tv_sec * 1000) + (current.tv_usec / 1000));
-	return (stop - start);
+	return (get_time_ml() - start);
 }

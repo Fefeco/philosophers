@@ -6,11 +6,20 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 12:08:12 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/19 18:20:51 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/22 13:19:17 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+long	get_time_ml(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		return (-1);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
 
 int	update_status(t_philo *philo, int new_status)
 {

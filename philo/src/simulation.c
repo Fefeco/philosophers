@@ -6,7 +6,7 @@
 /*   By: fcarranz <fcarranz@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 10:33:21 by fcarranz          #+#    #+#             */
-/*   Updated: 2024/09/19 18:50:27 by fcarranz         ###   ########.fr       */
+/*   Updated: 2024/09/22 13:16:22 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,9 @@ static void	check_philos(t_data *data)
 
 void	start_simulation(t_data *data)
 {
-	struct timeval	start;
-	long			i;
+	long	i;
 
-	if (gettimeofday(&start, NULL) == -1)
-		return ;
-	data->start_time = (start.tv_sec * 1000) + (start.tv_usec / 1000);
+	data->start_time = get_time_ml();
 	data->stop_simulation = false;
 	i = -1;
 	while (++i < data->nb_philos)
