@@ -12,7 +12,7 @@ El proyecto incluye un Makefile con las siguientes reglas:
 - `make clean`: Elimina archivos objeto.
 - `make fclean`: Elimina los ejecutables y archivos objeto.
 - `make re`: Limpia y recompila todo el proyecto.
-- 
+
 ## Uso
 Descarga el repositorio y dentro del directorio compila el proyecto:
 ```bash
